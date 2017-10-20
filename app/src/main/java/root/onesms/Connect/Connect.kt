@@ -10,14 +10,18 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object Connect {
 
-    public fun getApi() : Api{
+    var retrofit : Retrofit? = null
+
+    init {
         val cilent = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-        val retrofit = Retrofit.Builder()
+        retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(OkHttpClient.Builder().addInterceptor(cilent).build())
                 .build()
+    }
 
-        return retrofit.create(Api::class.java)
+    public fun getApi() : Api?{
+        return retrofit?.create(Api::class.java)
     }
 
 

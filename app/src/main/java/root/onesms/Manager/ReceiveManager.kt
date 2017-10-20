@@ -24,7 +24,6 @@ public class ReceiveManager(context : Context, contact : String){
     init {
         shortUrlStr = context.getString(R.string.short_url)
         locationUrlStr = context.getString(R.string.locate_url)
-
         getLocation(context, contact)
     }
 
@@ -62,20 +61,19 @@ public class ReceiveManager(context : Context, contact : String){
     }
 
     private fun getShortUrl(location: Location, func: (String) -> Unit){
+        Connect.getApi()?.getShortUrl(shortUrlStr + location.latitude + "," + location.longitude)
+            ?.enqueue(object : Callback<JsonObject>{
+            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
+                if (response?.code() == 200){
+                    val shortUrl = response.body()?.get("shortUrl")?.asString
+                    func(shortUrl!!)
+                }
+            }
 
-        Connect.getApi().getShortUrl(shortUrlStr + location.latitude + "," + location.longitude)
-                .enqueue(object : Callback<JsonObject>{
-                    override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
-                        if (response?.code() == 200){
-                            val shortUrl = response.body()?.get("shortUrl")?.asString
-                            func(shortUrl!!)
-                        }
-                    }
-
-                    override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
-                        t?.printStackTrace()
-                    }
-                })
+            override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
+                t?.printStackTrace()
+            }
+        })
     }
 
 }
