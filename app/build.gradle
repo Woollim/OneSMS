@@ -46,6 +46,8 @@ dependencies {
 
     compile 'gun0912.ted:tedpermission:2.0.3'
 
+    compile 'com.github.yoavst:androidKotlin:1.5.1'
+
     compile 'com.github.ajalt.reprint:core:3.1.0@aar'
     compile 'com.github.ajalt.reprint:reprint_spass:3.1.0@aar'
 
