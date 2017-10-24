@@ -4,4 +4,13 @@
     <string name="short_url">http://surl.kr/Api/create.php</string>
     <string name="locate_url">https://www.google.com/maps/?q=loc:</string>
 
+    <string name="header_option">설정</string>
+    <string name="option_start">서비스 실행</string>
+    <string name="option_fingerprint">지문 잠금 활성화</string>
+    <string name="header_info">정보</string>
+    <string name="info_message">문자 키워드</string>
+    <string name="info_open">해제 암호</string>
+    <string name="info_contact">연락 번호</string>
+    <string name="info_more">추가 정보</string>
+
 </resources>

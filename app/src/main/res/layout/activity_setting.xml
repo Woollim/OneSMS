@@ -12,6 +12,7 @@
         android:layout_height="match_parent"/>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/editButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="8dp"
