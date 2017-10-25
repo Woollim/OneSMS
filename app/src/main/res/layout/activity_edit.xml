@@ -12,118 +12,86 @@
         android:contentInsetStart="4dp"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:background="@android:color/transparent"
-            android:src="@drawable/icon_back"
-            android:scaleType="centerCrop"
-            android:padding="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_width="48dp"
-            android:layout_height="48dp" />
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/icon_back"
+                android:scaleType="centerCrop"
+                android:padding="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
 
-        <TextView
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_width="wrap_content"
-            android:text="정보 수정"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="정보 수정"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:textSize="18dp"
+                android:text="저장"
+                android:textStyle="bold"
+                android:background="@android:color/transparent"
+                android:textColor="#FFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
     </Toolbar>
 
-    <LinearLayout
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_margin="8dp"
+        app:met_primaryColor="@color/colorPurple"
         android:layout_below="@id/toolBar"
-        android:id="@+id/layout1"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        app:met_floatingLabel="highlight"
+        android:id="@+id/messageText"
+        android:textSize="17dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="문자 키워드"/>
-        <EditText
-            android:id="@+id/messageText"
-            android:textSize="14dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:hint="@string/info_message"/>
 
-    <LinearLayout
-        android:layout_below="@id/layout1"
-        android:id="@+id/layout2"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/openText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="해제 암호"/>
-        <EditText
-            android:id="@+id/openText"
-            android:textSize="14dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:layout_alignStart="@+id/contactText"
+        android:layout_below="@+id/messageText"
+        android:hint="@string/info_open"
+        android:textSize="17dp"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="@color/colorPurple" />
 
-    <LinearLayout
-        android:layout_below="@id/layout2"
-        android:id="@+id/layout3"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:textSize="17dp"
+        android:layout_margin="8dp"
+        app:met_primaryColor="@color/colorPurple"
+        android:layout_below="@id/openText"
+        app:met_floatingLabel="highlight"
+        android:id="@+id/contactText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="연락 번호"/>
-        <EditText
-            android:id="@+id/contactText"
-            android:textSize="14dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:hint="@string/info_contact"/>
 
-    <LinearLayout
-        android:layout_below="@id/layout3"
-        android:id="@+id/layout4"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:textSize="17dp"
+        android:layout_margin="8dp"
+        app:met_primaryColor="@color/colorPurple"
+        android:layout_below="@id/contactText"
+        app:met_maxCharacters="120"
+        app:met_floatingLabel="highlight"
+        android:id="@+id/moreText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="추가 정보"/>
-        <EditText
-            android:id="@+id/moreInfoText"
-            android:textSize="14dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:hint="@string/info_more"/>
 
-    <Button
-        android:id="@+id/saveButton"
-        android:text="저장"
-        android:textSize="18dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
 
 </RelativeLayout>
