@@ -16,7 +16,7 @@ import root.onesms.R
 /**
  * Created by root1 on 2017. 10. 12..
  */
-public class ReceiveManager(context : Context, contact : String){
+public class SendSMSManager(context : Context, contact : String){
 
     var shortUrlStr = ""
     var locationUrlStr = ""

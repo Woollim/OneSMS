@@ -25,7 +25,6 @@ class LockScreenService : Service() {
     override fun onCreate() {
         super.onCreate()
         Reprint.initialize(this)
-
         craateLockScreen()
 
     }

@@ -12,4 +12,5 @@ interface Api {
 
     @GET
     fun getShortUrl(@Url url : String) : Call<JsonObject>
+
 }

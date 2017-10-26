@@ -2,6 +2,7 @@ package root.onesms.Activity
 
 import android.os.Bundle
 import android.widget.EditText
+import kotlinx.android.synthetic.main.activity_edit.*
 import root.onesms.R
 import root.onesms.Util.BaseActivity
 
@@ -14,31 +15,25 @@ class EditActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
 
+        backButton.setOnClickListener {
+            finish()
+        }
+
+        saveButton.setOnClickListener {
+            if (messageText.text.isEmpty() || openText.text.isEmpty() || contactText.text.isEmpty()){
+                showToast("필수 항목들을 입력하세요")
+            }else{
+                saveData(R.string.info_message, messageText)
+                saveData(R.string.info_open, openText)
+                saveData(R.string.info_contact, contactText)
+                saveData(R.string.info_more, moreText)
+                finish()
+            }
+        }
 
 
-//        saveButton.setOnClickListener {
-//            if(emptyCheck()){
-//                showToast("값을 다 입력하세요")
-//            }else{
-//                saveData(R.string.info_message, messageText)
-//                saveData(R.string.info_open, openText)
-//                saveData(R.string.info_contact, contactText)
-//                saveData(R.string.info_more, moreInfoText)
-//
-//                showToast("저장 되었습니다.")
-//                finish()
-//            }
-//        }
 
     }
-
-//    fun emptyCheck() : Boolean{
-//        fun empty(e : EditText) : Boolean{
-//            return e.text.toString().isEmpty()
-//        }
-//
-//        return empty(messageText) || empty(openText) || empty(contactText) || empty(moreInfoText)
-//    }
 
     fun saveData(id : Int, valueEdit : EditText){
         val editor = getPreference().edit()

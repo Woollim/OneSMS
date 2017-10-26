@@ -25,7 +25,7 @@ class SettingActivity : BaseActivity() {
         var contentArray = arrayListOf(R.string.header_option, R.string.option_start, R.string.header_info, R.string.info_message, R.string.info_open, R.string.info_contact, R.string.info_more)
 
         Reprint.initialize(this)
-        Log.d("xxx", "" + Reprint.isHardwarePresent())
+
         if(Reprint.isHardwarePresent()){
             contentArray.add(2, R.string.option_fingerprint)
         }
@@ -172,6 +172,7 @@ class SettingActivity : BaseActivity() {
                     }
                 }
             }
+
         }
     }
 
