@@ -4,7 +4,7 @@
 
     <item android:id="@+id/menu_preview"
         android:orderInCategory="1"
-        android:title="프리뷰"
+        android:title="미리보기"
         app:showAsAction="never"/>
 
     <item android:id="@+id/menu_guide"

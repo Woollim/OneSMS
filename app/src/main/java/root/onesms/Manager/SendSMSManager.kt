@@ -51,13 +51,14 @@ public class SendSMSManager(context : Context, contact : String){
             smsManager.sendTextMessage(contact,null, text, null, null)
         }
         send("OneSMS의 위치정보 문자입니다.")
-        if (location != null){
+        location?.let {
             getShortUrl(location, {text -> send(text)})
             send("위도 : "+location.latitude)
             send("경도 : "+location.longitude)
-        }else{
-            send("위치정보를 불러오지 못했습니다.")
+            return
         }
+
+        send("위치정보를 불러오지 못했습니다.")
     }
 
     private fun getShortUrl(location: Location, func: (String) -> Unit){

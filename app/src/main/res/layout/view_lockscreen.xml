@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="#000000"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="잠금을 해제하려면\n지문을 인식하거나 버튼을 눌러주세요"/>
+
+    <ImageButton
+        android:id="@+id/unlockButton"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="24dp"
+        android:layout_above="@id/text"
+        android:src="@drawable/icon_lock"
+        android:background="@drawable/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp"
+        android:layout_centerInParent="true"
+        android:text="분실된 휴대전화입니다"/>
+
+    <TextView
+        android:id="@+id/contactText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/text1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="98dp"
+        android:text="010-2289-5997"
+        android:textColor="#FFFFFF"
+        android:textSize="38dp" />
+
+    <TextView
+        android:layout_marginBottom="8dp"
+        android:layout_above="@id/contactText"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="연락처"
+        android:textSize="15dp"
+        android:textColor="#FFFFFF"/>
+
+</RelativeLayout>

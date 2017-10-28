@@ -26,7 +26,6 @@ class EditActivity : BaseActivity() {
                 saveData(R.string.info_message, messageText)
                 saveData(R.string.info_open, openText)
                 saveData(R.string.info_contact, contactText)
-                saveData(R.string.info_more, moreText)
                 finish()
             }
         }
