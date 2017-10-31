@@ -1,8 +1,6 @@
 package root.onesms.Activity
 
 import android.os.Bundle
-import root.onesms.Manager.LockScreenManager
-import root.onesms.Manager.SoundManager
 import root.onesms.Util.BaseActivity
 
 /**
@@ -14,7 +12,7 @@ class TempActivity: BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        LockScreenManager(this, SoundManager(this))
+//        LockScreenManager(this, SoundManager(this))
 
     }
 }

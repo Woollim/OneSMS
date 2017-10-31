@@ -13,7 +13,6 @@ import root.onesms.Util.UtilClass
  */
 class OneSMSReceiver : BroadcastReceiver() {
 
-    val PREFLOCKID = "isLock"
     var pref: SharedPreferences? = null
     var isLock = false
 
@@ -22,7 +21,7 @@ class OneSMSReceiver : BroadcastReceiver() {
         if (!pref?.getBoolean("${R.string.option_start}", false)!!)
             return
 
-        isLock = pref?.getBoolean(PREFLOCKID, false)!!
+        isLock = pref?.getBoolean("${R.string.key_isLock}", false)!!
 
         when (intent.action) {
             Intent.ACTION_BOOT_COMPLETED -> {
@@ -39,6 +38,10 @@ class OneSMSReceiver : BroadcastReceiver() {
     private fun sendMessage(p1: Array<Any>, context: Context) {
         val message = arrayOfNulls<SmsMessage>(p1.size)[0]
         if (message!!.messageBody.equals(pref?.getString("${R.string.option_start}", ""))) {
+            val editor = pref?.edit()
+            editor?.remove("${R.string.key_isLock}")
+            editor?.putBoolean("${R.string.key_isLock}", true)
+            editor?.commit()
             SendSMSManager(context, message.messageBody)
         }
     }

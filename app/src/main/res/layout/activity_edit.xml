@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <Toolbar
         android:id="@+id/toolBar"
         android:background="@color/colorLightPurple"
@@ -61,7 +62,7 @@
         android:textSize="17dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="문자 키워드*"/>
+        android:hint="문자 키워드"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/openText"
@@ -71,7 +72,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:layout_below="@+id/messageText"
-        android:hint="해제 암호*"
+        android:hint="해제 암호"
         android:textSize="17dp"
         app:met_floatingLabel="highlight"
         app:met_primaryColor="@color/colorPurple" />
@@ -87,23 +88,8 @@
         android:id="@+id/contactText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="연락 번호*"/>
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:textSize="17dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-
-        app:met_primaryColor="@color/colorPurple"
-        android:layout_below="@id/contactText"
-        app:met_maxCharacters="120"
-        app:met_floatingLabel="highlight"
-        android:id="@+id/moreText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/info_more"/>
+        android:hint="연락 번호"/>
 
 
 
-</RelativeLayout>
+</LinearLayout>

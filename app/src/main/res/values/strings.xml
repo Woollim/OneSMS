@@ -11,6 +11,7 @@
     <string name="info_message">문자 키워드</string>
     <string name="info_open">해제 암호</string>
     <string name="info_contact">연락 번호</string>
-    <string name="info_more">추가 정보</string>
+
+    <string name="key_isLock">this is lock key</string>
 
 </resources>
