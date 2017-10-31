@@ -7,10 +7,8 @@ import android.telephony.SmsManager
 import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.gson.JsonObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import root.onesms.Connect.Connect
+import root.onesms.Connect.ResCall
 import root.onesms.R
 
 /**
@@ -62,19 +60,20 @@ public class SendSMSManager(context : Context, contact : String){
     }
 
     private fun getShortUrl(location: Location, func: (String) -> Unit){
-        Connect.getApi()?.getShortUrl(shortUrlStr + location.latitude + "," + location.longitude)
-            ?.enqueue(object : Callback<JsonObject>{
-            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
-                if (response?.code() == 200){
-                    val shortUrl = response.body()?.get("shortUrl")?.asString
-                    func(shortUrl!!)
-                }
-            }
 
-            override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
-                t?.printStackTrace()
-            }
-        })
+        Connect.getApi()?.getShortUrl(shortUrlStr + location.latitude + "," + location.longitude)
+                ?.enqueue(object : ResCall<JsonObject> {
+                    override fun onCallBack(code: Int, body: JsonObject?) {
+                        when(code){
+                            200 -> {
+                                val shortUrl = body?.get("shortUrl")?.asString
+                                func(shortUrl!!)
+                            }
+                            else -> {}
+                        }
+                    }
+                })
+
     }
 
 }

@@ -26,11 +26,11 @@ class OneSMSReceiver : BroadcastReceiver() {
 
         when (intent.action) {
             Intent.ACTION_BOOT_COMPLETED -> {
-                if (isLock) LockScreenManager(context)
+                if (isLock) LockScreenManager(context, SoundManager(context))
             }
             "android.provider.Telephony.SMS_RECEIVED" -> {
                 sendMessage(intent.extras.get("pdus") as Array<Any>, context)
-                if(!isLock) LockScreenManager(context)
+                if(!isLock) LockScreenManager(context, SoundManager(context))
             }
         }
     }
