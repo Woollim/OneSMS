@@ -53,8 +53,9 @@ class LockScreenManager(context: Context, soundManager: SoundManager) {
         })
 
         with(view){
+            contactText.text = pref?.getString("${R.string.info_contact}", "")
             unlockButton.setOnClickListener {
-
+                unLock()
             }
         }
 
@@ -66,11 +67,17 @@ class LockScreenManager(context: Context, soundManager: SoundManager) {
 
         val editor = pref?.edit()
         editor?.remove("${R.string.key_isLock}")
-        editor?.putBoolean("${R.string.key_isLock}", true)
+        editor?.putBoolean("${R.string.key_isLock}", false)
         editor?.commit()
+
     }
 
     private fun lock(){
         windowManager.addView(view, param)
+
+        val editor = pref?.edit()
+        editor?.remove("${R.string.key_isLock}")
+        editor?.putBoolean("${R.string.key_isLock}", true)
+        editor?.commit()
     }
 }

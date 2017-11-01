@@ -17,6 +17,7 @@ object Connect {
         retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(OkHttpClient.Builder().addInterceptor(cilent).build())
+                .baseUrl("http://surl.kr/")
                 .build()
     }
 

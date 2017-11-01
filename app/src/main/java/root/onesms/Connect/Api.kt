@@ -3,14 +3,14 @@ package root.onesms.Connect
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Url
+import retrofit2.http.Query
 
 /**
  * Created by root1 on 2017. 10. 12..
  */
 interface Api {
 
-    @GET
-    fun getShortUrl(@Url url : String) : Call<JsonObject>
+    @GET("Api/create.php")
+    fun getShortUrl(@Query("longUrl")url: String) : Call<JsonObject>
 
 }

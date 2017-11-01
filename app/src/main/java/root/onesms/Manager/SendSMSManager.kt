@@ -16,11 +16,9 @@ import root.onesms.R
  */
 public class SendSMSManager(context : Context, contact : String){
 
-    var shortUrlStr = ""
     var locationUrlStr = ""
 
     init {
-        shortUrlStr = context.getString(R.string.short_url)
         locationUrlStr = context.getString(R.string.locate_url)
         getLocation(context, contact)
     }
@@ -60,8 +58,7 @@ public class SendSMSManager(context : Context, contact : String){
     }
 
     private fun getShortUrl(location: Location, func: (String) -> Unit){
-
-        Connect.getApi()?.getShortUrl(shortUrlStr + location.latitude + "," + location.longitude)
+        Connect.getApi()?.getShortUrl(locationUrlStr + location.latitude + "," + location.longitude)
                 ?.enqueue(object : ResCall<JsonObject> {
                     override fun onCallBack(code: Int, body: JsonObject?) {
                         when(code){

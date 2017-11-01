@@ -1,5 +1,6 @@
 package root.onesms.Activity
 
+import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,6 +10,8 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.*
 import com.github.ajalt.reprint.core.Reprint
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.view_header.view.*
 import kotlinx.android.synthetic.main.view_infomation.view.*
@@ -33,10 +36,29 @@ class SettingActivity : BaseActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = SettingAdapter(contentArray)
 
+        TedPermission
+                .with(this)
+                .setPermissions(android.Manifest.permission.RECEIVE_SMS,android.Manifest.permission.SEND_SMS,
+                        Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                .setPermissionListener(object : PermissionListener{
+                    override fun onPermissionGranted() {
+
+                    }
+
+                    override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>?) {
+                        Log.d("Xxx", deniedPermissions?.toString())
+                        showToast("권한을 주지 않으면 서비스를 실행할 수 없습니다.")
+                        finish()
+                    }
+                }).check()
+
+
         editButton.setOnClickListener {
             val intent = Intent(this, EditActivity::class.java)
             startActivity(intent)
         }
+
+
 
     }
 
@@ -53,7 +75,7 @@ class SettingActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when(item?.itemId){
             R.id.menu_preview -> {
-                Log.d("hello world", "nice")
+                startActivity(Intent(this, PreviewActivity::class.java))
                 true
             }
             R.id.menu_guide -> {

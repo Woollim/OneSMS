@@ -9,16 +9,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.PreviewActivity">
+        <activity android:name=".Activity.SettingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Activity.EditActivity"
             android:theme="@style/NoActionTheme">
         </activity>
+
+        <activity android:name=".Activity.PreviewActivity"
+            android:theme="@style/NoActionTheme">
+        </activity>
+
+        <receiver android:name=".Manager.OneSMSReceiver">
+            <intent-filter android:priority="9999">
+                <action android:name="android.intent.action.BOOT_COMPLETED">
+                </action>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED">
+                </action>
+            </intent-filter>
+        </receiver>
 
     </application>
 
