@@ -13,6 +13,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/editButton"
+        android:src="@drawable/icon_create"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="8dp"

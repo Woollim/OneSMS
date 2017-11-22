@@ -12,5 +12,10 @@
         <item name="colorPrimary">@color/colorLightPurple</item>
         <item name="colorPrimaryDark">@color/colorPurple</item>
     </style>
+    
+    <style name="SplashTheme" parent="NoActionTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@drawable/view_splash</item>
+    </style>
 
 </resources>

@@ -80,4 +80,5 @@ class LockScreenManager(context: Context, soundManager: SoundManager) {
         editor?.putBoolean("${R.string.key_isLock}", true)
         editor?.commit()
     }
+
 }

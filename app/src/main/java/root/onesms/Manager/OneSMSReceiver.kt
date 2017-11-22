@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.telephony.SmsMessage
-import android.util.Log
 import root.onesms.R
 import root.onesms.Util.UtilClass
 
@@ -21,13 +20,11 @@ class OneSMSReceiver : BroadcastReceiver() {
 
         pref = UtilClass.getPreference(context)
         if (!pref?.getBoolean("${R.string.option_start}", false)!!){
-            Log.e("xxx", "service not running")
             return
         }
 
 
         isLock = pref?.getBoolean("${R.string.key_isLock}", false)!!
-        Log.e("xxx", "" + isLock)
 
         when (intent.action) {
             Intent.ACTION_BOOT_COMPLETED -> {

@@ -26,7 +26,6 @@ class LockScreenService : Service() {
         super.onCreate()
         Reprint.initialize(this)
         craateLockScreen()
-
     }
 
     private fun craateLockScreen(){

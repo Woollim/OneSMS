@@ -12,7 +12,5 @@ class TempActivity: BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        LockScreenManager(this, SoundManager(this))
-
     }
 }
