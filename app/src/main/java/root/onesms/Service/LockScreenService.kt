@@ -7,8 +7,6 @@ import android.graphics.PixelFormat
 import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.WindowManager
-import com.github.ajalt.reprint.core.AuthenticationFailureReason
-import com.github.ajalt.reprint.core.AuthenticationListener
 import com.github.ajalt.reprint.core.Reprint
 import org.jetbrains.annotations.Nullable
 
@@ -38,20 +36,7 @@ class LockScreenService : Service() {
                 PixelFormat.TRANSLUCENT
         )
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE)!! as LayoutInflater
-//        val lockView = inflater.inflate()
 
-    }
-
-    private fun startfingerPrint(){
-        Reprint.authenticate(object : AuthenticationListener{
-            override fun onSuccess(moduleTag: Int) {
-
-            }
-
-            override fun onFailure(failureReason: AuthenticationFailureReason?, fatal: Boolean, errorMessage: CharSequence?, moduleTag: Int, errorCode: Int) {
-
-            }
-        })
     }
 
 }

@@ -4,8 +4,10 @@
 
     <item android:drawable="@color/colorPurple"/>
     <item
-        android:left="64dp"
-        android:right="64dp">
+        android:drawable="@drawable/icon_logo"
+        android:width="128dp"
+        android:height="128dp"
+        android:gravity="center">
     </item>
 
 </layer-list>

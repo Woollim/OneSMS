@@ -11,6 +11,6 @@
     <string name="info_open">해제 암호</string>
     <string name="info_contact">연락 번호</string>
 
-    <string name="key_isLock">this is lock key</string>
+    <string name="key_lock_state">잠금상태 키</string>
 
 </resources>

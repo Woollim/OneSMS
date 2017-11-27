@@ -1,47 +1,43 @@
 package root.onesms.Manager
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.graphics.PixelFormat
-import android.view.LayoutInflater
-import android.view.View
-import android.view.WindowManager
-import com.github.ajalt.reprint.core.AuthenticationFailureReason
-import com.github.ajalt.reprint.core.AuthenticationListener
-import com.github.ajalt.reprint.core.Reprint
+import android.content.*
+import android.graphics.*
+import android.view.*
+import com.github.ajalt.reprint.core.*
 import kotlinx.android.synthetic.main.view_lockscreen.view.*
-import root.onesms.R
-import root.onesms.Util.UtilClass
+import kotlinx.android.synthetic.main.view_unlockscreen.view.*
+import root.onesms.*
+import root.onesms.Util.*
 
 /**
  * Created by root1 on 2017. 10. 26..
  */
 class LockScreenManager(context: Context, soundManager: SoundManager) {
+
     lateinit var windowManager: WindowManager
     lateinit var inflator: LayoutInflater
-    lateinit var view: View
     lateinit var soundManager: SoundManager
-    lateinit var param: WindowManager.LayoutParams
+    lateinit var pref: SharedPreferences
 
-    var pref: SharedPreferences? = null
+    val param: WindowManager.LayoutParams = WindowManager.LayoutParams (
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.TYPE_PHONE,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT )
+
+    var lockScreen: View? = null
+    var unLockScreen: View? = null
 
     init {
         windowManager = context.getSystemService(Context.WINDOW_SERVICE)!! as WindowManager
         inflator = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)!! as LayoutInflater
-        view = inflator.inflate(R.layout.view_lockscreen, null)
-        param = WindowManager.LayoutParams (
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT )
-        this.soundManager = soundManager
         pref = UtilClass.getPreference(context)
+        this.soundManager = soundManager
 
-        lock()
+        createLockScreen()
 
         Reprint.initialize(context)
-
         Reprint.authenticate(object : AuthenticationListener{
             override fun onSuccess(moduleTag: Int) {
                 unLock()
@@ -52,33 +48,47 @@ class LockScreenManager(context: Context, soundManager: SoundManager) {
             }
         })
 
-        with(view){
-            contactText.text = pref?.getString("${R.string.info_contact}", "")
-            unlockButton.setOnClickListener {
-                unLock()
+    }
+
+    private fun createUnLockScreen(){
+        unLockScreen = inflator.inflate(R.layout.view_unlockscreen, null)
+        windowManager.addView(unLockScreen!!, param)
+
+        with(unLockScreen!!){
+            cancelButton.setOnClickListener {
+                windowManager.removeView(unLockScreen)
+                unLockScreen = null
             }
+            checkButton.setOnClickListener {
+                if (passwordEdit.text.toString() == pref.getString("${R.string.info_open}", "")){
+                    unLock()
+                }else{ passwordEdit.setText("") }
+            }
+        }
+    }
+
+    private fun createLockScreen(){
+        lockScreen = inflator.inflate(R.layout.view_lockscreen, null)
+        windowManager.addView(lockScreen!!, param)
+
+        val editor = pref.edit()
+        editor.putBoolean("${R.string.key_lock_state}", true)
+        editor.commit()
+
+        with(lockScreen!!){
+            contactText.text = pref.getString("${R.string.info_contact}", "")
+            unlockButton.setOnClickListener { createUnLockScreen() }
         }
 
     }
 
     private fun unLock(){
+        unLockScreen?.let { windowManager.removeView(unLockScreen!!) }
+        lockScreen?.let { windowManager.removeView(lockScreen!!) }
         soundManager.stopSound()
-        windowManager.removeView(view)
-
-        val editor = pref?.edit()
-        editor?.remove("${R.string.key_isLock}")
-        editor?.putBoolean("${R.string.key_isLock}", false)
-        editor?.commit()
-
-    }
-
-    private fun lock(){
-        windowManager.addView(view, param)
-
-        val editor = pref?.edit()
-        editor?.remove("${R.string.key_isLock}")
-        editor?.putBoolean("${R.string.key_isLock}", true)
-        editor?.commit()
+        val editor = pref.edit()
+        editor.putBoolean("${R.string.key_lock_state}", false)
+        editor.commit()
     }
 
 }

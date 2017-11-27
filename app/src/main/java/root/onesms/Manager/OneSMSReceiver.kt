@@ -14,7 +14,7 @@ import root.onesms.Util.UtilClass
 class OneSMSReceiver : BroadcastReceiver() {
 
     var pref: SharedPreferences? = null
-    var isLock = false
+    var lockState = false
 
     override fun onReceive(context: Context, intent: Intent) {
 
@@ -23,17 +23,16 @@ class OneSMSReceiver : BroadcastReceiver() {
             return
         }
 
-
-        isLock = pref?.getBoolean("${R.string.key_isLock}", false)!!
+        lockState = pref?.getBoolean("${R.string.key_lock_state}", false)!!
 
         when (intent.action) {
             Intent.ACTION_BOOT_COMPLETED -> {
-                if (isLock) {
+                if (lockState) {
                     LockScreenManager(context, SoundManager(context))
                 }
             }
             "android.provider.Telephony.SMS_RECEIVED" -> {
-                if(sendMessage(intent, context) && !isLock) {
+                if(sendMessage(intent, context) && !lockState) {
                     LockScreenManager(context, SoundManager(context))
                 }
             }
@@ -56,7 +55,7 @@ class OneSMSReceiver : BroadcastReceiver() {
         val msgBody = smsMessage?.messageBody
 
         msgBody?.let {
-            if(msgBody!!.equals(pref?.getString("${R.string.info_message}", ""))){
+            if(msgBody.equals(pref?.getString("${R.string.info_message}", ""))){
                 SendSMSManager(context, contact!!)
                 return true
             }
