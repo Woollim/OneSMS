@@ -23,12 +23,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
-        android:text="hello"
         android:textSize="24dp"
         android:hint="비밀번호"/>
 
     <LinearLayout
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

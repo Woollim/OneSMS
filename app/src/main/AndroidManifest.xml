@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/icon_logo"
         android:supportsRtl="true">
 
-        <activity android:name=".Activity.TempActivity"
+        <activity android:name=".Activity.SplashActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,5 +52,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
 
 </manifest>

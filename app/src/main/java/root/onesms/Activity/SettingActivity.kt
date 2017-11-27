@@ -1,23 +1,20 @@
 package root.onesms.Activity
 
-import android.Manifest
-import android.content.Intent
-import android.content.SharedPreferences
-import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.text.method.PasswordTransformationMethod
-import android.util.Log
+import android.*
+import android.content.*
+import android.os.*
+import android.support.v7.widget.*
+import android.text.method.*
+import android.util.*
 import android.view.*
-import com.github.ajalt.reprint.core.Reprint
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
+import com.github.ajalt.reprint.core.*
+import com.gun0912.tedpermission.*
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.view_header.view.*
 import kotlinx.android.synthetic.main.view_infomation.view.*
 import kotlinx.android.synthetic.main.view_switch.view.*
 import root.onesms.R
-import root.onesms.Util.BaseActivity
+import root.onesms.Util.*
 
 class SettingActivity : BaseActivity() {
 
@@ -41,7 +38,8 @@ class SettingActivity : BaseActivity() {
         TedPermission
                 .with(this)
                 .setPermissions(android.Manifest.permission.RECEIVE_SMS,android.Manifest.permission.SEND_SMS,
-                        Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                        Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_NOTIFICATION_POLICY)
                 .setPermissionListener(object : PermissionListener{
                     override fun onPermissionGranted() {
 

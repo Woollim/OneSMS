@@ -18,12 +18,13 @@ class LockScreenManager(context: Context, soundManager: SoundManager) {
     lateinit var inflator: LayoutInflater
     lateinit var soundManager: SoundManager
     lateinit var pref: SharedPreferences
+    lateinit var context: Context
 
-    val param: WindowManager.LayoutParams = WindowManager.LayoutParams (
+    val param = WindowManager.LayoutParams (
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.TYPE_PHONE,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
             PixelFormat.TRANSLUCENT )
 
     var lockScreen: View? = null
@@ -34,17 +35,19 @@ class LockScreenManager(context: Context, soundManager: SoundManager) {
         inflator = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)!! as LayoutInflater
         pref = UtilClass.getPreference(context)
         this.soundManager = soundManager
+        this.context = context
 
         createLockScreen()
 
         Reprint.initialize(context)
+
         Reprint.authenticate(object : AuthenticationListener{
             override fun onSuccess(moduleTag: Int) {
                 unLock()
             }
 
             override fun onFailure(failureReason: AuthenticationFailureReason?, fatal: Boolean, errorMessage: CharSequence?, moduleTag: Int, errorCode: Int) {
-
+                UtilClass.showToast(context, "실패")
             }
         })
 
@@ -54,6 +57,8 @@ class LockScreenManager(context: Context, soundManager: SoundManager) {
         unLockScreen = inflator.inflate(R.layout.view_unlockscreen, null)
         windowManager.addView(unLockScreen!!, param)
 
+        val toastContext = context
+
         with(unLockScreen!!){
             cancelButton.setOnClickListener {
                 windowManager.removeView(unLockScreen)
@@ -62,7 +67,10 @@ class LockScreenManager(context: Context, soundManager: SoundManager) {
             checkButton.setOnClickListener {
                 if (passwordEdit.text.toString() == pref.getString("${R.string.info_open}", "")){
                     unLock()
-                }else{ passwordEdit.setText("") }
+                }else{
+                    passwordEdit.setText("")
+                    UtilClass.showToast(toastContext, "실패")
+                }
             }
         }
     }
