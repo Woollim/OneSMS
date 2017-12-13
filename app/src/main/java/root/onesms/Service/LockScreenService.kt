@@ -1,14 +1,10 @@
 package root.onesms.Service
 
-import android.app.Service
-import android.content.Context
-import android.content.Intent
-import android.graphics.PixelFormat
-import android.os.IBinder
-import android.view.LayoutInflater
-import android.view.WindowManager
-import com.github.ajalt.reprint.core.Reprint
-import org.jetbrains.annotations.Nullable
+import android.app.*
+import android.content.*
+import android.os.*
+import org.jetbrains.annotations.*
+import root.onesms.Manager.*
 
 /**
  * Created by root1 on 2017. 10. 20..
@@ -22,21 +18,7 @@ class LockScreenService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        Reprint.initialize(this)
-        craateLockScreen()
-    }
-
-    private fun craateLockScreen(){
-        val windowManager = getSystemService(Context.LAYOUT_INFLATER_SERVICE)!! as WindowManager
-        val param = WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-                PixelFormat.TRANSLUCENT
-        )
-        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE)!! as LayoutInflater
-
+        LockScreenManager(this, SoundManager(this))
     }
 
 }

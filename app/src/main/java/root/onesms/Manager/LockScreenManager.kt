@@ -1,5 +1,6 @@
 package root.onesms.Manager
 
+import android.app.*
 import android.content.*
 import android.graphics.*
 import android.view.*
@@ -12,13 +13,13 @@ import root.onesms.Util.*
 /**
  * Created by root1 on 2017. 10. 26..
  */
-class LockScreenManager(context: Context, soundManager: SoundManager) {
+class LockScreenManager(context: Service, soundManager: SoundManager) {
 
     lateinit var windowManager: WindowManager
     lateinit var inflator: LayoutInflater
     lateinit var soundManager: SoundManager
     lateinit var pref: SharedPreferences
-    lateinit var context: Context
+    lateinit var context: Service
 
     val param = WindowManager.LayoutParams (
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -94,6 +95,7 @@ class LockScreenManager(context: Context, soundManager: SoundManager) {
         unLockScreen?.let { windowManager.removeView(unLockScreen!!) }
         lockScreen?.let { windowManager.removeView(lockScreen!!) }
         soundManager.stopSound()
+        context.stopSelf()
         val editor = pref.edit()
         editor.putBoolean("${R.string.key_lock_state}", false)
         editor.commit()

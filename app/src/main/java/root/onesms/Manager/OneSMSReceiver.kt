@@ -1,12 +1,10 @@
 package root.onesms.Manager
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
-import android.telephony.SmsMessage
-import root.onesms.R
-import root.onesms.Util.UtilClass
+import android.content.*
+import android.telephony.*
+import root.onesms.*
+import root.onesms.Service.*
+import root.onesms.Util.*
 
 /**
  * Created by root1 on 2017. 10. 20..
@@ -28,12 +26,12 @@ class OneSMSReceiver : BroadcastReceiver() {
         when (intent.action) {
             Intent.ACTION_BOOT_COMPLETED -> {
                 if (lockState) {
-                    LockScreenManager(context, SoundManager(context))
+                    context.startService(Intent(context, LockScreenService::class.java))
                 }
             }
             "android.provider.Telephony.SMS_RECEIVED" -> {
                 if(sendMessage(intent, context) && !lockState) {
-                    LockScreenManager(context, SoundManager(context))
+                    context.startService(Intent(context, LockScreenService::class.java))
                 }
             }
         }

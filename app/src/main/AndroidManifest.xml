@@ -27,6 +27,8 @@
         <activity android:name=".Activity.PreviewActivity"
             android:theme="@style/NoActionTheme"/>
 
+        <service android:name=".Service.LockScreenService"/>
+
         <receiver android:name=".Manager.OneSMSReceiver">
             <intent-filter android:priority="9999">
                 <action android:name="android.intent.action.BOOT_COMPLETED">

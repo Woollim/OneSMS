@@ -1,8 +1,8 @@
 package root.onesms.Activity
 
-import android.content.Intent
-import android.os.Bundle
-import root.onesms.Util.BaseActivity
+import android.content.*
+import android.os.*
+import root.onesms.Util.*
 
 /**
  * Created by root1 on 2017. 11. 25..
@@ -15,6 +15,7 @@ class SplashActivity: BaseActivity() {
         val intent = Intent(this, SettingActivity::class.java)
         startActivity(intent)
         finish()
+
     }
 
 }
