@@ -15,7 +15,7 @@
     
     <style name="SplashTheme" parent="NoActionTheme">
         <item name="windowNoTitle">true</item>
-        <item name="android:background">@drawable/view_splash</item>
+        <item name="android:background">@drawable/splash_view</item>
     </style>
 
 </resources>

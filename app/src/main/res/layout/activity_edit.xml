@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <Toolbar
-        android:id="@+id/toolBar"
+        android:id="@+id/tool_edit"
         android:background="@color/colorLightPurple"
         android:layout_width="match_parent"
         android:layout_marginBottom="16dp"
@@ -20,9 +20,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <ImageButton
-                android:id="@+id/backButton"
-                android:background="@android:color/transparent"
-                android:src="@drawable/icon_back"
+                android:id="@+id/button_edit_back"
+                android:background="@drawable/all_button_back"
+                android:src="@drawable/all_back_icon"
                 android:scaleType="centerCrop"
                 android:padding="8dp"
                 android:layout_marginRight="8dp"
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/saveButton"
+                android:id="@+id/button_edit_save"
                 android:textSize="21dp"
                 android:text="저장"
                 android:textStyle="bold"
@@ -56,22 +56,22 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         app:met_primaryColor="@color/colorPurple"
-        android:layout_below="@id/toolBar"
+        android:layout_below="@id/tool_edit"
         app:met_floatingLabel="highlight"
-        android:id="@+id/messageText"
+        android:id="@+id/edit_edit_message"
         android:textSize="17dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="문자 키워드"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/openText"
+        android:id="@+id/edit_edit_open"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:layout_below="@+id/messageText"
+        android:layout_below="@id/edit_edit_message"
         android:hint="해제 암호"
         android:textSize="17dp"
         app:met_floatingLabel="highlight"
@@ -83,13 +83,12 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         app:met_primaryColor="@color/colorPurple"
-        android:layout_below="@id/openText"
+        android:layout_below="@id/edit_edit_open"
         app:met_floatingLabel="highlight"
-        android:id="@+id/contactText"
+        android:id="@+id/edit_edit_contact"
+        android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="연락 번호"/>
-
-
 
 </LinearLayout>

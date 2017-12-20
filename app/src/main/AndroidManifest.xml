@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon_logo"
+        android:icon="@drawable/all_logo_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/icon_logo"
+        android:roundIcon="@drawable/all_logo_icon"
         android:supportsRtl="true">
 
         <activity android:name=".Activity.SplashActivity"
@@ -25,6 +25,9 @@
             android:theme="@style/NoActionTheme"/>
 
         <activity android:name=".Activity.PreviewActivity"
+            android:theme="@style/NoActionTheme"/>
+
+        <activity android:name=".Activity.InfoActivity"
             android:theme="@style/NoActionTheme"/>
 
         <service android:name=".Service.LockScreenService"/>

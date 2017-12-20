@@ -36,7 +36,7 @@
 
         <Button
             android:id="@+id/cancelButton"
-            android:background="@drawable/back_unlockscreen_button_shape"
+            android:background="@drawable/unlock_screen_button_back"
             android:layout_marginRight="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
 
         <Button
             android:id="@+id/checkButton"
-            android:background="@drawable/back_unlockscreen_button_shape"
+            android:background="@drawable/unlock_screen_button_back"
             android:layout_marginLeft="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

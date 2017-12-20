@@ -20,51 +20,40 @@ class SettingActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_setting)
 
         var contentArray = arrayListOf(R.string.header_option, R.string.option_start, R.string.header_info, R.string.info_message, R.string.info_open, R.string.info_contact)
 
         Reprint.initialize(this)
-
         if(Reprint.isHardwarePresent()){
             contentArray.add(2, R.string.option_fingerprint)
         }
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = SettingAdapter(contentArray)
+        recycler_setting.layoutManager = LinearLayoutManager(this)
+        recycler_setting.adapter = SettingAdapter(contentArray)
 
         TedPermission
                 .with(this)
                 .setPermissions(android.Manifest.permission.RECEIVE_SMS,android.Manifest.permission.SEND_SMS,
-                        Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_NOTIFICATION_POLICY)
+                        Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .setPermissionListener(object : PermissionListener{
-                    override fun onPermissionGranted() {
-
-                    }
+                    override fun onPermissionGranted() {}
 
                     override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>?) {
-                        Log.d("Xxx", deniedPermissions?.toString())
                         showToast("권한을 주지 않으면 서비스를 실행할 수 없습니다.")
                         finish()
                     }
+
                 }).check()
 
 
-        editButton.setOnClickListener {
-            val intent = Intent(this, EditActivity::class.java)
-            startActivity(intent)
-        }
-
-
+        button_setting_edit.setOnClickListener { startActivity(Intent(this, EditActivity::class.java)) }
 
     }
 
     override fun onStart() {
         super.onStart()
-        recyclerView.adapter.notifyDataSetChanged()
+        recycler_setting.adapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -79,7 +68,7 @@ class SettingActivity : BaseActivity() {
                 true
             }
             R.id.menu_guide -> {
-                Log.d("hello world", "nice")
+                startActivity(Intent(this, InfoActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -146,9 +135,7 @@ class SettingActivity : BaseActivity() {
             }
         }
 
-        override fun getItemCount(): Int {
-            return contentArray?.size ?: 0
-        }
+        override fun getItemCount(): Int = contentArray?.size ?: 0
 
         inner class ContentViewHolder(view : View) : RecyclerView.ViewHolder(view){
 
@@ -189,7 +176,7 @@ class SettingActivity : BaseActivity() {
                             val editor = pref!!.edit()
                             editor.remove("$id")
                             editor.putBoolean("$id", checked)
-                            editor.commit()
+                            editor.apply()
                         }
                     }
                 }

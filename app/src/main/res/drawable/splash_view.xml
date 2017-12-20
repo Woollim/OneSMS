@@ -4,7 +4,7 @@
 
     <item android:drawable="@color/colorPurple"/>
     <item
-        android:drawable="@drawable/icon_logo"
+        android:drawable="@drawable/all_logo_icon"
         android:width="128dp"
         android:height="128dp"
         android:gravity="center">

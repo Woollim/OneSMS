@@ -1,12 +1,12 @@
 package root.onesms.Activity
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.RelativeLayout
+import android.os.*
+import android.view.*
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_preview.*
 import kotlinx.android.synthetic.main.view_lockscreen.view.*
-import root.onesms.R
-import root.onesms.Util.BaseActivity
+import root.onesms.*
+import root.onesms.Util.*
 
 /**
  * Created by root1 on 2017. 10. 31..
@@ -23,13 +23,11 @@ class PreviewActivity: BaseActivity(){
                 RelativeLayout.LayoutParams.MATCH_PARENT
         )
 
-        rootLayout.addView(view, param)
+        layout_preview_root.addView(view, param)
 
-        toolBar.bringToFront()
+        tool_preview.bringToFront()
 
-        backButton.setOnClickListener {
-            finish()
-        }
+        button_preview_back.setOnClickListener { finish() }
 
         with(view){
             contactText.text = getPreference().getString("${R.string.info_contact}", "여기에 연락처가 표시됩니다.")
