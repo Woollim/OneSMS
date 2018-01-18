@@ -8,40 +8,41 @@ import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.gson.JsonObject
 import root.onesms.Connect.Connect
+import root.onesms.Connect.LongUrlModel
 import root.onesms.Connect.ResCall
 import root.onesms.R
 
 /**
  * Created by root1 on 2017. 10. 12..
  */
-public class SendSMSManager(context : Context, contact : String){
+public class SendSMSManager(val context : Context, val contact : String){
 
     var locationUrlStr = ""
 
     init {
         locationUrlStr = context.getString(R.string.locate_url)
-        getLocation(context, contact)
+        getLocation()
     }
 
 
     @SuppressLint("MissingPermission")
-    private fun getLocation(context: Context, contact : String){
+    private fun getLocation(){
         val locationProviderClient = FusedLocationProviderClient(context)
         locationProviderClient.lastLocation.addOnCompleteListener {
             task ->
             android.os.Handler().post({
                 if(task.isSuccessful){
                     Log.d("location", task.result.toString())
-                    sendSMS(contact, task.result)
+                    sendSMS(task.result)
                 }else{
                     Log.d("location", task.exception.toString())
-                    sendSMS(contact, null)
+                    sendSMS(null)
                 }
             })
         }
     }
 
-    private fun sendSMS(contact: String, location : Location?){
+    private fun sendSMS(location : Location?){
         val smsManager = SmsManager.getDefault()
         fun send(text : String){
             smsManager.sendTextMessage(contact,null, text, null, null)
@@ -58,12 +59,12 @@ public class SendSMSManager(context : Context, contact : String){
     }
 
     private fun getShortUrl(location: Location, func: (String) -> Unit){
-        Connect.getApi()?.getShortUrl(locationUrlStr + location.latitude + "," + location.longitude)
-                ?.enqueue(object : ResCall<JsonObject> {
+        Connect.api.getShortUrl(LongUrlModel(locationUrlStr + location.latitude + "," + location.longitude), context.getString(R.string.key_short_url))
+                .enqueue(object : ResCall<JsonObject> {
                     override fun onCallBack(code: Int, body: JsonObject?) {
                         when(code){
                             200 -> {
-                                val shortUrl = body?.get("shortUrl")?.asString
+                                val shortUrl = body?.get("id")?.asString
                                 func(shortUrl!!)
                             }
                             else -> {}

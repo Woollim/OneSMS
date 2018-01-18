@@ -24,11 +24,6 @@ class SettingActivity : BaseActivity() {
 
         var contentArray = arrayListOf(R.string.header_option, R.string.option_start, R.string.header_info, R.string.info_message, R.string.info_open, R.string.info_contact)
 
-        Reprint.initialize(this)
-        if(Reprint.isHardwarePresent()){
-            contentArray.add(2, R.string.option_fingerprint)
-        }
-
         recycler_setting.layoutManager = LinearLayoutManager(this)
         recycler_setting.adapter = SettingAdapter(contentArray)
 
@@ -124,7 +119,7 @@ class SettingActivity : BaseActivity() {
                     val holder = hl as HeaderViewHolder
                     holder.bindView(title)
                 }
-                title.equals("서비스 실행") || title.equals("지문 잠금 활성화") -> {
+                title.equals("서비스 실행") -> {
                     val holder = hl as SwitchViewHolder
                     holder.bindView(title!!, pref!!.getBoolean("$id", false), id)
                 }
@@ -143,7 +138,6 @@ class SettingActivity : BaseActivity() {
                 with(itemView){
                     titleText.text = title
                     if(title.equals(getString(R.string.info_open))){
-                        Log.d("xxx", getString(R.string.info_open))
                         contentText.transformationMethod = PasswordTransformationMethod()
                     }
                     contentText.text = content

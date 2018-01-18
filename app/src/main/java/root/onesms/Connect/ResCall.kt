@@ -18,4 +18,5 @@ interface ResCall<T>: Callback<T> {
     override fun onFailure(call: Call<T>?, t: Throwable?) {
         t?.printStackTrace()
     }
+
 }

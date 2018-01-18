@@ -20,7 +20,7 @@ class InfoActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
         view_pager_info.adapter = InfoViewPagerAdapter(supportFragmentManager)
-
+        button_info_exit.setOnClickListener{ finish() }
     }
 
     class InfoViewPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){

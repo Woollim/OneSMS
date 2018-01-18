@@ -8,6 +8,7 @@ import root.onesms.*
  * Created by root1 on 2017. 10. 26..
  */
 class SoundManager(context: Context) {
+
     lateinit var mediaPlayer: MediaPlayer
 
     init {
