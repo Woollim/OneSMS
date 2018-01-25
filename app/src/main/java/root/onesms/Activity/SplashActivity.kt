@@ -2,6 +2,7 @@ package root.onesms.Activity
 
 import android.content.*
 import android.os.*
+import android.util.Log
 import root.onesms.Util.*
 
 /**

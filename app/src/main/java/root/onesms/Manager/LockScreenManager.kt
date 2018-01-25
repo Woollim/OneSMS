@@ -4,7 +4,6 @@ import android.app.*
 import android.content.*
 import android.graphics.*
 import android.view.*
-import com.github.ajalt.reprint.core.*
 import kotlinx.android.synthetic.main.view_lockscreen.view.*
 import kotlinx.android.synthetic.main.view_unlockscreen.view.*
 import root.onesms.*
@@ -39,18 +38,6 @@ class LockScreenManager(context: Service, soundManager: SoundManager) {
         this.context = context
 
         createLockScreen()
-
-        Reprint.initialize(context)
-
-        Reprint.authenticate(object : AuthenticationListener{
-            override fun onSuccess(moduleTag: Int) {
-                unLock()
-            }
-
-            override fun onFailure(failureReason: AuthenticationFailureReason?, fatal: Boolean, errorMessage: CharSequence?, moduleTag: Int, errorCode: Int) {
-                UtilClass.showToast(context, "실패")
-            }
-        })
 
     }
 
