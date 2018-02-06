@@ -17,21 +17,17 @@ class PreviewActivity: BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
 
-        val view = LayoutInflater.from(this).inflate(R.layout.view_lockscreen, null)
-        val param = RelativeLayout.LayoutParams(
+        val view = LayoutInflater.from(this).inflate(R.layout.view_lockscreen, null).apply{
+            contactText.text = getPreference().getString("${R.string.info_contact}", "여기에 연락처가 표시됩니다.")
+        }
+        RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT
-        )
-
-        layout_preview_root.addView(view, param)
+        ).let { layout_preview_root.addView(view, it) }
 
         tool_preview.bringToFront()
 
         button_preview_back.setOnClickListener { finish() }
-
-        with(view){
-            contactText.text = getPreference().getString("${R.string.info_contact}", "여기에 연락처가 표시됩니다.")
-        }
 
     }
 

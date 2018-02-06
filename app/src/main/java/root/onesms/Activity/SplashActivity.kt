@@ -12,9 +12,10 @@ class SplashActivity: BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val intent = Intent(this, SettingActivity::class.java)
-        startActivity(intent)
-        finish()
+        Intent(this, SettingActivity::class.java).let {
+            startActivity(it)
+            finish()
+        }
 
     }
 

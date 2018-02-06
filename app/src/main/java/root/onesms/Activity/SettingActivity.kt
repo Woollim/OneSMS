@@ -5,9 +5,7 @@ import android.content.*
 import android.os.*
 import android.support.v7.widget.*
 import android.text.method.*
-import android.util.*
 import android.view.*
-import com.github.ajalt.reprint.core.*
 import com.gun0912.tedpermission.*
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.view_header.view.*
@@ -16,21 +14,22 @@ import kotlinx.android.synthetic.main.view_switch.view.*
 import root.onesms.R
 import root.onesms.Util.*
 
-class SettingActivity : BaseActivity() {
+class SettingActivity: BaseActivity() {
+
+    lateinit var adapter: SettingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
-        var contentArray = arrayListOf(R.string.header_option, R.string.option_start, R.string.header_info, R.string.info_message, R.string.info_open, R.string.info_contact)
+        val contentArray = arrayListOf(R.string.header_option, R.string.option_start, R.string.header_info, R.string.info_message, R.string.info_open, R.string.info_contact)
 
-        Reprint.initialize(this)
-        if(Reprint.isHardwarePresent()){
-            contentArray.add(2, R.string.option_fingerprint)
+        adapter = SettingAdapter(contentArray)
+
+        recycler_setting.apply {
+            layoutManager = LinearLayoutManager(this@SettingActivity)
+            adapter = this@SettingActivity.adapter
         }
-
-        recycler_setting.layoutManager = LinearLayoutManager(this)
-        recycler_setting.adapter = SettingAdapter(contentArray)
 
         TedPermission
                 .with(this)
@@ -53,16 +52,16 @@ class SettingActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        recycler_setting.adapter.notifyDataSetChanged()
+        adapter.notifyDataSetChanged()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
             R.id.menu_preview -> {
                 startActivity(Intent(this, PreviewActivity::class.java))
                 true
@@ -75,21 +74,13 @@ class SettingActivity : BaseActivity() {
         }
     }
 
-    inner class SettingAdapter(contentArray : ArrayList<Int>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-
-        var contentArray : ArrayList<Int>? = null
-        var pref : SharedPreferences? = null
-
-        init {
-            this.contentArray = contentArray
-            pref = getPreference()
-        }
+    inner class SettingAdapter(val contentArray : ArrayList<Int>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : RecyclerView.ViewHolder?{
-            val title = getString(contentArray!![viewType])
-            var viewNum : Int
+            val title = getString(contentArray[viewType])
+            var viewNum: Int
 
-            val view = LayoutInflater.from(parent.context).inflate(when{
+            LayoutInflater.from(parent.context).inflate(when{
                 title.length == 2 -> {
                     viewNum = 1
                     R.layout.view_header
@@ -102,51 +93,46 @@ class SettingActivity : BaseActivity() {
                     viewNum = 3
                     R.layout.view_infomation
                 }
-            }, parent, false)
-
-            return when(viewNum){
-                1 -> HeaderViewHolder(view)
-                2 -> SwitchViewHolder(view)
-                else -> ContentViewHolder(view)
+            }, parent, false).let {
+                return when(viewNum){
+                    1 -> HeaderViewHolder(it)
+                    2 -> SwitchViewHolder(it)
+                    else -> ContentViewHolder(it)
+                }
             }
         }
 
-        override fun getItemViewType(position: Int): Int {
-            return position
-        }
+        override fun getItemViewType(position: Int): Int = position
 
         override fun onBindViewHolder(hl: RecyclerView.ViewHolder, position: Int) {
-            val id = contentArray!!.get(position)
+            val id = contentArray[position]
             val title = getString(id)
-            Log.d("xxx", "$id")
+
             when{
                 title.length == 2 -> {
                     val holder = hl as HeaderViewHolder
                     holder.bindView(title)
                 }
-                title.equals("서비스 실행") || title.equals("지문 잠금 활성화") -> {
+                title.equals("서비스 실행") -> {
                     val holder = hl as SwitchViewHolder
-                    holder.bindView(title!!, pref!!.getBoolean("$id", false), id)
+                    holder.bindView(title, getPreference().getBoolean("$id", false))
                 }
                 else -> {
                     val holder = hl as ContentViewHolder
-                    holder.bindView(title!!, pref!!.getString("$id", "아직 등록되지 않았습니다."))
+                    holder.bindView(title, getPreference().getString("$id", "아직 등록되지 않았습니다."))
                 }
             }
         }
 
-        override fun getItemCount(): Int = contentArray?.size ?: 0
+        override fun getItemCount(): Int = contentArray.size
 
-        inner class ContentViewHolder(view : View) : RecyclerView.ViewHolder(view){
+        inner class ContentViewHolder(val view : View) : RecyclerView.ViewHolder(view){
 
             fun bindView(title: String, content: String) {
-                with(itemView){
+                with(view){
                     titleText.text = title
-                    if(title.equals(getString(R.string.info_open))){
-                        Log.d("xxx", getString(R.string.info_open))
-                        contentText.transformationMethod = PasswordTransformationMethod()
-                    }
                     contentText.text = content
+                    if(title.equals(getString(R.string.info_open))) { contentText.transformationMethod = PasswordTransformationMethod() }
                 }
             }
 
@@ -154,31 +140,26 @@ class SettingActivity : BaseActivity() {
 
         inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
-            fun bindView(title: String){
-                with(itemView){
-                    headerText.text = title
-                }
-            }
+            fun bindView(title: String) = with(itemView){ headerText.text = title }
 
         }
 
         inner class SwitchViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
-            fun bindView(title: String, set: Boolean, id : Int){
+            fun bindView(title: String, set: Boolean){
                 with(itemView){
                     infoText.text = title
                     setSwitch.isChecked = set
                     setSwitch.setOnCheckedChangeListener { _, checked ->
-                        if(title.equals(getString(R.string.option_start)) && pref!!.all.size < 2){
+                        if(getPreference().all.size < 2 && checked){
+                            showToast("설정 값을 모두 입력해야 동작합니다.")
                             setSwitch.isChecked = false
-                            showToast("값을 입력하여야 OneSMS를 실행할 수 있습니다.")
-                        }else {
-                            val editor = pref!!.edit()
-                            editor.remove("$id")
-                            editor.putBoolean("$id", checked)
-                            editor.apply()
-                        }
-                    }
+                        }else{
+                            getPreference().edit().run {
+                                putBoolean("${R.string.option_start}", checked)
+                                apply()
+                            }
+                        }}
                 }
             }
 

@@ -20,7 +20,6 @@ class InfoActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
         view_pager_info.adapter = InfoViewPagerAdapter(supportFragmentManager)
-
     }
 
     class InfoViewPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
@@ -32,24 +31,17 @@ class InfoActivity : BaseActivity(){
     }
 
     @SuppressLint("ValidFragment")
-    class ImageFragment(position: Int): Fragment(){
+    class ImageFragment(val position: Int): Fragment(){
 
-        var position: Int = 0
         val resIdArr = arrayOf(R.drawable.info_guide_back_1, R.drawable.info_guide_back_2, R.drawable.info_guide_back_3, R.drawable.info_guide_back_4)
 
-        init {
-            this.position = position
-        }
-
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            val view = LinearLayout(context)
             val imageView = ImageView(context)
             imageView.scaleType = ImageView.ScaleType.FIT_XY
             Glide.with(this)
                     .load(resIdArr[position])
                     .into(imageView)
-            view.addView(imageView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-            return view
+            return LinearLayout(context).apply { addView(imageView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT) }
         }
 
     }

@@ -31,10 +31,10 @@ class EditActivity : BaseActivity() {
     }
 
     fun saveData(id : Int, valueEdit : EditText){
-        val editor = getPreference().edit()
-        editor.remove("$id")
-        editor.putString("$id", valueEdit.text.toString())
-        editor.apply()
+        getPreference().edit().run {
+            putString("$id", valueEdit.text.toString())
+            apply()
+        }
     }
 
 }
