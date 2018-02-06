@@ -85,7 +85,7 @@ class SettingActivity: BaseActivity() {
                     viewNum = 1
                     R.layout.view_header
                 }
-                title.equals("서비스 실행") || title.equals("지문 잠금 활성화") -> {
+                viewType == 1 -> {
                     viewNum = 2
                     R.layout.view_switch
                 }
@@ -120,6 +120,7 @@ class SettingActivity: BaseActivity() {
                 else -> {
                     val holder = hl as ContentViewHolder
                     holder.bindView(title, getPreference().getString("$id", "아직 등록되지 않았습니다."))
+
                 }
             }
         }
@@ -133,12 +134,13 @@ class SettingActivity: BaseActivity() {
                     titleText.text = title
                     contentText.text = content
                     if(title.equals(getString(R.string.info_open))) { contentText.transformationMethod = PasswordTransformationMethod() }
+
                 }
             }
 
         }
 
-        inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        inner class HeaderViewHolder(val view: View) : RecyclerView.ViewHolder(view){
 
             fun bindView(title: String) = with(itemView){ headerText.text = title }
 

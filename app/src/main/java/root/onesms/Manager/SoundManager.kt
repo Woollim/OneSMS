@@ -2,21 +2,27 @@ package root.onesms.Manager
 
 import android.content.*
 import android.media.*
-import root.onesms.*
+
+
 
 /**
  * Created by root1 on 2017. 10. 26..
  */
-class SoundManager(context: Context) {
-    lateinit var mediaPlayer: MediaPlayer
+class SoundManager(val context: Context) {
+
+    lateinit var ringtone: Ringtone
 
     init {
-        mediaPlayer = MediaPlayer.create(context, R.raw.siren)
-        mediaPlayer.start()
+        RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE).let {
+            RingtoneManager.getRingtone(context, it)
+        }.apply { audioAttributes = AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .build(); play() }
     }
 
     public fun stopSound(){
-        mediaPlayer.stop()
+        ringtone.stop()
     }
 
 }

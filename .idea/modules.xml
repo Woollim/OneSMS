@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OneSMS.iml" filepath="$PROJECT_DIR$/OneSMS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OneSMS_Kotlin.iml" filepath="$PROJECT_DIR$/OneSMS_Kotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

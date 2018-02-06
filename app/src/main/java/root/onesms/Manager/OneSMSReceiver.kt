@@ -53,7 +53,7 @@ class OneSMSReceiver : BroadcastReceiver() {
         val msgBody = smsMessage?.messageBody
 
         msgBody?.let {
-            if(msgBody.equals(pref?.getString("${R.string.info_message}", ""))){
+            if(it.equals(pref?.getString("${R.string.info_message}", ""))){
                 SendSMSManager(context, contact!!)
                 return true
             }

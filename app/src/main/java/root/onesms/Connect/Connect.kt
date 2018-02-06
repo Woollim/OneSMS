@@ -17,7 +17,7 @@ object Connect {
             Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(OkHttpClient.Builder().addInterceptor(it).build())
-                    .baseUrl("http://surl.kr/")
+                    .baseUrl("https://www.googleapis.com/")
                     .build()
         }.let { it.create(Api::class.java) }
     }

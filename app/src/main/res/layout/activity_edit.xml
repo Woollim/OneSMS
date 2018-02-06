@@ -66,6 +66,7 @@
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/edit_edit_open"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"

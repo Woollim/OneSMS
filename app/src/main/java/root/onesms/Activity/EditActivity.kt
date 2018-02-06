@@ -30,6 +30,14 @@ class EditActivity : BaseActivity() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        getPreference().let {
+            edit_edit_message.setText(it.getString("${R.string.info_message}", ""))
+            edit_edit_contact.setText(it.getString("${R.string.info_contact}", ""))
+        }
+    }
+
     fun saveData(id : Int, valueEdit : EditText){
         getPreference().edit().run {
             putString("$id", valueEdit.text.toString())
