@@ -157,10 +157,9 @@ class SettingActivity: BaseActivity() {
                             showToast("설정 값을 모두 입력해야 동작합니다.")
                             setSwitch.isChecked = false
                         }else{
-                            getPreference().edit().run {
+                            getPreference().edit().apply {
                                 putBoolean("${R.string.option_start}", checked)
-                                apply()
-                            }
+                            }.apply()
                         }}
                 }
             }

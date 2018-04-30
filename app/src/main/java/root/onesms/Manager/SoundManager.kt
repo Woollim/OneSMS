@@ -13,7 +13,7 @@ class SoundManager(val context: Context) {
     lateinit var ringtone: Ringtone
 
     init {
-        RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE).let {
+        ringtone = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE).let {
             RingtoneManager.getRingtone(context, it)
         }.apply { audioAttributes = AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_ALARM)

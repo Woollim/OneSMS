@@ -11,15 +11,16 @@ import root.onesms.Util.*
 /**
  * Created by root1 on 2017. 10. 31..
  */
-class PreviewActivity: BaseActivity(){
+class PreviewActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
 
-        val view = LayoutInflater.from(this).inflate(R.layout.view_lockscreen, null).apply{
-            contactText.text = getPreference().getString("${R.string.info_contact}", "여기에 연락처가 표시됩니다.")
+        val view = LayoutInflater.from(this).inflate(R.layout.view_lockscreen, null).apply {
+            contactText.text = getPreference().getString("${R.string.info_contact}", "연락처가 표시됩니다.")
         }
+
         RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT

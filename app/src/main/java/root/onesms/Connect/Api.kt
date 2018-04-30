@@ -1,8 +1,7 @@
 package root.onesms.Connect
 
-import com.google.gson.JsonObject
-import com.google.gson.annotations.JsonAdapter
-import retrofit2.Call
+import com.google.gson.*
+import retrofit2.*
 import retrofit2.http.*
 
 /**
@@ -15,4 +14,4 @@ interface Api {
 
 }
 
-data class LongUrlModel(var longUrl: String)
+data class LongUrlModel(val longUrl: String)

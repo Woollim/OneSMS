@@ -10,7 +10,7 @@ import retrofit2.converter.gson.*
  */
 object Connect {
 
-    lateinit var api: Api
+    val api: Api
 
     init {
         api = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY).let {

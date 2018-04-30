@@ -3,6 +3,8 @@ package root.onesms.Manager
 import android.app.*
 import android.content.*
 import android.graphics.*
+import android.os.*
+import android.provider.*
 import android.view.*
 import kotlinx.android.synthetic.main.view_lockscreen.view.*
 import kotlinx.android.synthetic.main.view_unlockscreen.view.*
@@ -12,6 +14,7 @@ import root.onesms.Util.*
 /**
  * Created by root1 on 2017. 10. 26..
  */
+
 class LockScreenManager(val context: Service, val soundManager: SoundManager) {
 
     lateinit var windowManager: WindowManager
@@ -33,7 +36,10 @@ class LockScreenManager(val context: Service, val soundManager: SoundManager) {
         inflator = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         pref = UtilClass.getPreference(context)
 
-        createLockScreen()
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context)){
+            UtilClass.showToast(context, "잠금화면이 활성화되지 않았습니다. 다른 앱 위에 오버레이 권한을 확인하세요.")
+            soundManager.stopSound()
+        }else{ createLockScreen() }
     }
 
     private fun createUnLockScreen(){
@@ -63,8 +69,7 @@ class LockScreenManager(val context: Service, val soundManager: SoundManager) {
 
         pref.edit().apply {
             putBoolean("${R.string.key_lock_state}", true)
-            apply()
-        }
+        }.apply()
 
         with(lockScreen!!){
             contactText.text = pref.getString("${R.string.info_contact}", "")
@@ -74,14 +79,13 @@ class LockScreenManager(val context: Service, val soundManager: SoundManager) {
     }
 
     private fun unLock(){
-        unLockScreen?.let { windowManager.removeView(unLockScreen!!) }
-        lockScreen?.let { windowManager.removeView(lockScreen!!) }
+        unLockScreen?.let { windowManager.removeView(it) }
+        lockScreen?.let { windowManager.removeView(it) }
         soundManager.stopSound()
-        context.stopSelf()
         pref.edit().apply{
             putBoolean("${R.string.key_lock_state}", false)
-            apply()
-        }
+        }.apply()
+        context.stopSelf()
     }
 
 }
