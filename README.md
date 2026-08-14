@@ -30,9 +30,14 @@
 
 ## 화면 구성
 
+| 설정 | 편집 | 잠금 | 해제 |
+| --- | --- | --- | --- |
+| <img src="resource/screen-setting.png" width="200"> | <img src="resource/screen-edit.png" width="200"> | <img src="resource/screen-lock.png" width="200"> | <img src="resource/screen-unlock.png" width="200"> |
+
 - 설정 화면에서 서비스를 켜고 끄며, 등록한 키워드와 연락처를 확인해요.
 - 편집 화면에서 키워드 문자, 해제 암호, 연락처를 등록해요.
-- 잠금 화면에서 분실 안내와 연락처를 보여주고, 암호 입력으로 해제해요.
+- 잠금 화면에서 분실 안내와 연락처를 보여주고, 경고음을 울려요.
+- 해제 화면에서 암호를 입력해 잠금을 풀어요.
 
 ## 프로젝트 구조
 
