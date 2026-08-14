@@ -30,38 +30,6 @@
 - 편집 화면에서 키워드 문자, 해제 암호, 연락처를 등록해요.
 - 잠금 화면에서 분실 안내와 연락처를 보여주고, 암호 입력으로 해제해요.
 
-## 기술 스택
-
-- 언어는 Kotlin을 써요.
-- 네트워크 통신은 Retrofit과 OkHttp로 처리해요.
-- 위치 조회는 Google Play Services의 FusedLocationProvider를 써요.
-- 권한 요청은 TedPermission으로 처리해요.
-- 이미지 로딩은 Glide를 써요.
-
-## 빌드하고 실행하기
-
-2018년에 만든 프로젝트라 그 시절 빌드 도구(Gradle 4.1, Android Gradle Plugin 3.0.1, Kotlin 1.1.51)를 그대로 써요. 최신 macOS에서 빌드하려면 아래 환경이 필요해요.
-
-### 요구 사항
-
-- JDK 8 (구형 Android Gradle Plugin이 상위 버전 JDK와 호환되지 않아요)
-- Android SDK Platform 26
-- Android SDK Build-Tools 26.0.2
-
-### 빌드
-
-프로젝트 최상위에 SDK 경로를 담은 `local.properties`를 만들어요.
-
-```properties
-sdk.dir=/Users/사용자이름/Library/Android/sdk
-```
-
-디버그 APK는 다음 명령으로 빌드해요. 빌드 결과는 `app/build/outputs/apk/debug/`에 생겨요.
-
-```bash
-JAVA_HOME=<JDK 8 경로> ./gradlew :app:assembleDebug
-```
-
 ## 프로젝트 구조
 
 ```
@@ -72,8 +40,3 @@ app/src/main/java/root/onesms/
 ├── Connect/      Retrofit API 정의
 └── Util/         공통 유틸리티
 ```
-
-## 알려진 제약
-
-- 잠금 시 재생하는 소리는 기기 기본 벨소리예요. `res/raw/siren.mp3`는 지금 코드에서 쓰지 않아요.
-- 위치를 회신할 때 좌표를 짧은 링크로 바꾸는 데 Google URL Shortener API를 쓰는데, 이 API는 2019년에 종료됐어요. 좌표 자체는 문자로 전달돼요.
