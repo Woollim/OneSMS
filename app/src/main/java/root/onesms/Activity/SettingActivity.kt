@@ -38,7 +38,7 @@ class SettingActivity: BaseActivity() {
                 .setPermissionListener(object : PermissionListener{
                     override fun onPermissionGranted() {}
 
-                    override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>?) {
+                    override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
                         showToast("권한을 주지 않으면 서비스를 실행할 수 없습니다.")
                         finish()
                     }
